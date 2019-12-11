@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block title %} Dibujar electroencelogramas {% endblock %}
+
+{% block body %}
+
+
+<!-- <script src='\chart.js' >console.log('hola')</script> -->
+<script>
+    var points = "{{points|safe}}"
+    var newpoints = points.replace(/'/g, '"')
+    points = JSON.parse(newpoints)
+
+    // console.log(points)
+
+    var channel = "{{channel|safe}}"
+    // console.log(channel)
+    channel = channel.replace(/'/g, '"')
+    channel = JSON.parse(channel)
+    // console.log(channel)
+
+    window.onload = function () {
+        for (i=0;i< channel.length; i++) {
+            var div1 = document.createElement("div")
+            div1.id = i.toString();
+            div1.style="height: 370px; width: 100%;";
+            document.querySelector('#containers').append(div1)
+            var chart2 = new CanvasJS.Chart(i.toString(), {
+                animationEnabled: true,
+                theme: "light2",
+                title: {
+                    text: channel[i]
+                },
+                axisY: {
+                    includeZero: false
+                },
+                data: [{
+                    type: "line",
+                    dataPoints: points[i]
+                }]
+            });
+            chart2.render();
+        }
+    }
+
+</script>
+
+
+<h1 style="text-align: center;">Electroencefalogramas</h1>
+<div id="containers"> </div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+{% endblock %}

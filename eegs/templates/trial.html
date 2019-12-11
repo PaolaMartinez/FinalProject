@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title%} {% endblock %} </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'patient'%}"> Elegir otro paciente </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" >Trials y Canales</a>
+                    </li>
+            </div>
+        </nav>
+        <div class="card" style="width:50rem; margin: 20px auto">
+            <div class="card-body">
+                <h5 class="card-title text-center">Bienvenido a la página web</h5>
+                <p class="card-text">Los electroencefalogramas de cada paciente están divididos en secciones de 5
+                    segundos,
+                    que son las que podrás observar a continuación. Puedes elegir una sección del paciente que
+                    seleccionaste
+                    a continuación, así como también los canales del Electroencefalograma que deseas observar. </p>
+
+                <form action="/channel" method="POST"> {% csrf_token %}
+                    <div class="form-group">
+                        <label> Trials disponibles del paciente seleccionado </label>
+                        <select class="form-control" name="trial">
+                            {%for tr,id in trial%}
+                            <option value={{tr}}> {{id}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Canales del electroencefalograma</label>
+                        <select multiple class="form-control" name="channel">
+                            {%for chan in channel%}
+                            <option> {{chan}} </option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <button type="submit"> Next </button>
+                </form>
+
+</body>

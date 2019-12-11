@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title> Draw Electroencephalograms </title>
+
+</head>
+
+<body>
+
+    <div class="card" style="width:50rem; margin: 20px auto">
+        <div class="card-body">
+            <h5 class="card-title text-center">Bienvenido a la página web</h5>
+            <p class="card-text">En esta página podrás elegir un paciente y ver diferentes canales de sus
+                electroencefalogramas.</p>
+            <form action="/trial" method="POST"> {% csrf_token %}
+                <div class="form-group">
+                    <label> Pacientes disponibles</label>
+                    <select class="form-control" name="patient">
+                        {%for id,state in patient%}
+                        <option value={{id}}-{{state}}> Paciente {{id}} <span> ({{state}}) </span></option>
+                        {%endfor%}
+
+                    </select>
+
+
+                </div>
+                <button type="submit" class="btn btn-primary"> Next </button>
+
+            </form>
+        </div>
+    </div>
+</body>
